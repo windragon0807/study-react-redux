@@ -12,3 +12,7 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+/* [ Provider ]
+ * Provider에 쌓여진 하위 컴포넌트들은 Provider를 통해 redux store에 접근할 수 있다.
+ */

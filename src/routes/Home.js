@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { add } from "../store";
 import ToDo from "../components/ToDo";
 
-function Home({ toDos, addToDo }) {
+function Home() {
+  const toDos = useSelector((state) => state); // store state에 접근
+  const dispatch = useDispatch(); // store dispatch(action)에 접근
+
   const [text, setText] = useState("");
   function onChange(e) {
     setText(e.target.value);
   }
   function onSubmit(e) {
-    e.preventDefault();
-    addToDo(text);
+    e.preventDefault(); // submit 시, 페이지 새로고침되는 현상을 막아줌
+    dispatch(add(text));
     setText("");
   }
   return (
@@ -21,6 +24,7 @@ function Home({ toDos, addToDo }) {
         <button>Add</button>
       </form>
       <ul>
+        {/* toDos => [{text: 'a', id: Date.now()}, {text: 'b', id: Date.now()}, ...}] */}
         {toDos.map((toDo) => (
           <ToDo {...toDo} key={toDo.id} />
         ))}
@@ -29,14 +33,4 @@ function Home({ toDos, addToDo }) {
   );
 }
 
-function mapStateToProps(state) {
-  return { toDos: state };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addToDo: (text) => dispatch(add(text)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
