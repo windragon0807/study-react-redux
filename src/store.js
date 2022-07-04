@@ -20,7 +20,4 @@ const toDos = createSlice({
 
 export const { add, remove } = toDos.actions;
 
-/* [ configureStore ]
- * 더 나은 개발 경험을 위해 store 설정에 몇몇 기본 값을 추가한다.
- */
 export default configureStore({ reducer: toDos.reducer });
